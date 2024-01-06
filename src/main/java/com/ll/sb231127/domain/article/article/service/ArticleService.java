@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,7 @@ public class ArticleService {
     @Transactional
     public RsData<Article> write(long authorId, String title, String body) {
         Article article = Article.builder()
+                .modifyDate(LocalDateTime.now())
                 .author(Member.builder().id(authorId).build())
                 .title(title)
                 .body(body)
@@ -31,5 +33,13 @@ public class ArticleService {
 
     public Optional<Article> findById(long id) {
         return articleRepository.findById(id);
+    }
+
+    @Transactional
+    public void modify(Article article, String title, String body) {
+        article.setTitle(title);
+        article.setBody(body);
+
+        article.setModifyDate(LocalDateTime.now());
     }
 }
