@@ -50,7 +50,7 @@ public class NotProd {
         Member member1 = memberService.findById(1L).get();
         Article article1 = articleService.findById(1L).get();
 
-        articleCommentService.write(member1, article1, "댓글1");
-        articleCommentService.write(member1, article1, "댓글1");
+        article1.addComment(member1, "댓글1");
+        article1.addComment(member1, "댓글2");
     }
 }
